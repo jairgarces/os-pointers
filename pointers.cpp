@@ -19,6 +19,9 @@ int main(int argc, char **argv)
     Student student;
     double average;
 
+    student.f_name = new char[128];
+    student.l_name = new char[128];
+
     // Sequence of user input -> store in fields of `student`
     student.id = promptInt("Please enter the student's id number: ", 0, 999999999);
 
@@ -40,7 +43,7 @@ int main(int argc, char **argv)
 
     //get grades
     for(int i=0; i<student.n_assignments;i++){
-        student.grades[i] = promptDouble("Please enter grade for assignment" + std::to_string(i) + ": ", 0.0, 1000.0);
+        student.grades[i] = promptDouble("Please enter grade for assignment " + std::to_string(i) + ": ", 0.0, 1000.0);
     }
 
     std::cout << std::endl;
@@ -64,6 +67,8 @@ int main(int argc, char **argv)
     std::cout << "  Average grade: " << round << std::endl;
 
     delete[] student.grades;
+    delete[] student.f_name;
+    delete[] student.l_name;
 
     return 0;
 }
@@ -80,6 +85,19 @@ int promptInt(std::string message, int min, int max)
     while(true){
         std::cout << message;
         std::getline(std::cin,tempstr);
+
+        bool valid = true;
+        for(size_t i = 0; i<tempstr.length();i++){
+            if(!isdigit(tempstr[i])){
+                valid=false;
+                break;
+            }
+        }
+    
+        if(!valid||tempstr.empty()){
+            std::cout << "Sorry, I cannot understand your answer" << std::endl;
+            continue;
+        }
 
         try{
             size_t numconv;
