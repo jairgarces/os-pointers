@@ -86,18 +86,6 @@ int promptInt(std::string message, int min, int max)
         std::cout << message;
         std::getline(std::cin,tempstr);
 
-        bool valid = true;
-        for(size_t i = 0; i<tempstr.length();i++){
-            if(!isdigit(tempstr[i])){
-                valid=false;
-                break;
-            }
-        }
-    
-        if(!valid||tempstr.empty()){
-            std::cout << "Sorry, I cannot understand your answer" << std::endl;
-            continue;
-        }
 
         try{
             size_t numconv;
